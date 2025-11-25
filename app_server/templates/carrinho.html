@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrinho</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background: #111;
+            color: white;
+        }
+        .item {
+            background: #222;
+            border-radius: 10px;
+            padding: 15px;
+        }
+        img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container py-4">
+
+        <h2 class="text-center mb-4">🛒 Seu Carrinho</h2>
+
+        {% for item in produtos %}
+        <div class="item mb-3 d-flex justify-content-between align-items-center">
+
+            <!-- FOTO + INFO -->
+            <div class="d-flex">
+                {% if item.produto.imagem_url %}
+                <img src="{{ item.produto.imagem_url }}" class="me-3">
+                {% endif %}
+
+                <div>
+                    <h5>{{ item.produto.nome }}</h5>
+                    <p>Preço: R$ {{ item.produto.preco }}</p>
+                    <p>Subtotal: R$ {{ item.subtotal }}</p>
+                </div>
+            </div>
+
+            <!-- BOTÕES -->
+            <div>
+                <a href="{% url 'remove_carrinho' item.produto.id %}" class="btn btn-warning btn-sm">-</a>
+                <span class="mx-2">{{ item.quantidade }}</span>
+                <a href="/add/{{ item.produto.id }}/1/" class="btn btn-success btn-sm">+</a>
+                <a href="{% url 'remover_item' item.produto.id %}" class="btn btn-danger btn-sm ms-3">Remover</a>
+            </div>
+
+        </div>
+        {% empty %}
+        <p class="text-center">Seu carrinho está vazio 😢</p>
+        {% endfor %}
+
+        <h3 class="mt-4">Total: R$ {{ total }}</h3>
+
+
+        {% if produtos %}
+        <a class="btn btn-success w-100 mt-3" href="{% url 'finalizar_venda' %}">
+            Finalizar no WhatsApp
+        </a>
+        {% endif %}
+
+
+        <a href="{% url 'catalogo_cliente' %}?reload=1" class="btn btn-secondary w-100 mt-3">
+            Voltar ao Catálogo
+        </a>
+
+    </div>
+</body>
+</html>
