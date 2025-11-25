@@ -11,9 +11,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-_il$t7_e2^_f1rp5p_x42m_5zsl%i+c74(rk=eme-+oaozs*jt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*', 'gcbalas-catalogo.onrender.com',]
+
+# Adicione a URL completa do seu serviço no Render aqui.
+# Use um esquema de protocolo (https://) no início.
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://gcbalas-catalogo.onrender.com',
+    # Se você tiver um domínio customizado (ex: https://meusite.com), adicione-o também
+    # 'https://seusitecustomizado.com',
+]
+
 
 
 # Application definition
